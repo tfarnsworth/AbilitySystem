@@ -21,7 +21,9 @@ ACharacterBase::ACharacterBase()
 void ACharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
-	AttributeSetBaseComp->OnHealthChange.AddDynamic(this, &ACharacterBase::OnHealthChanged);
+	AttributeSetBaseComp->OnHealthChange.AddDynamic(this, &ACharacterBase::OnHealthChange);
+	AttributeSetBaseComp->OnManaChange.AddDynamic(this, &ACharacterBase::OnManaChange);
+	AttributeSetBaseComp->OnStrengthChange.AddDynamic(this, &ACharacterBase::OnStrengthChange);
 	AutoDetermineTeamIdByControllerType();
 }
 
@@ -56,7 +58,7 @@ void ACharacterBase::AcquireAbility(TSubclassOf<UGameplayAbility> AbilityToAcqui
 	}
 }
 
-void ACharacterBase::OnHealthChanged(float Health, float MaxHealth)
+void ACharacterBase::OnHealthChange(float Health, float MaxHealth)
 {
 	if (Health <= 0.f && !bIsDead)
 	{
@@ -65,6 +67,16 @@ void ACharacterBase::OnHealthChanged(float Health, float MaxHealth)
 		BP_Die();
 	}
 	BP_OnHealthChanged(Health, MaxHealth);
+}
+
+void ACharacterBase::OnManaChange(float Mana, float MaxMana)
+{
+	BP_OnManaChanged(Mana, MaxMana);
+}
+
+void ACharacterBase::OnStrengthChange(float Strength, float MaxStrength)
+{
+	BP_OnStrengthChanged(Strength, MaxStrength);
 }
 
 bool ACharacterBase::IsOtherHostile(ACharacterBase* Other)

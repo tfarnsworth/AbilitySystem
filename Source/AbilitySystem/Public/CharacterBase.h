@@ -43,10 +43,22 @@ public:
 		void AcquireAbility(TSubclassOf<UGameplayAbility> AbilityToAcquire);
 
 	UFUNCTION()
-		void OnHealthChanged(float Health, float MaxHealth);
+		void OnHealthChange(float Health, float MaxHealth);
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "CharacterBase", meta = (DisplayName = "OnHealthChanged"))
 		void BP_OnHealthChanged(float Health, float MaxHealth);
+
+	UFUNCTION()
+		void OnManaChange(float Mana, float MaxMana);
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "CharacterBase", meta = (DisplayName = "OnManaChanged"))
+		void BP_OnManaChanged(float Mana, float MaxMana);
+
+	UFUNCTION()
+		void OnStrengthChange(float Strength, float MaxStrength);
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "CharacterBase", meta = (DisplayName = "OnStrengthChanged"))
+		void BP_OnStrengthChanged(float Strength, float MaxStrength);
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "CharacterBase", meta = (DisplayName = "Die"))
 		void BP_Die();

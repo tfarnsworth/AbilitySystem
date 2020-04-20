@@ -9,10 +9,12 @@
 class GameplayAttributeData;
 
 /**
- * 
+ *
  */
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHealthChangeDelegate, float, Health, float, MaxHealth);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHealthChangedDelegate, float, Health, float, MaxHealth);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnManaChangedDelegate, float, Mana, float, MaxMana);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnStrengthChangedDelegate, float, Strength, float, MaxStrength);
 UCLASS()
 class ABILITYSYSTEM_API UAttributeSetBase : public UAttributeSet
 {
@@ -20,15 +22,29 @@ class ABILITYSYSTEM_API UAttributeSetBase : public UAttributeSet
 
 
 public:
-    UAttributeSetBase();
+	UAttributeSetBase();
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AttributeSetBase")
-    FGameplayAttributeData Health;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AttributeSetBase")
+		FGameplayAttributeData Health;
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, CAtegory = "AttributeSetBase")
-    FGameplayAttributeData MaxHealth;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, CAtegory = "AttributeSetBase")
+		FGameplayAttributeData MaxHealth;
 
-    void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData &Data) override;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, CAtegory = "AttributeSetBase")
+		FGameplayAttributeData Mana;
 
-    FOnHealthChangeDelegate OnHealthChange;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, CAtegory = "AttributeSetBase")
+		FGameplayAttributeData MaxMana;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, CAtegory = "AttributeSetBase")
+		FGameplayAttributeData Strength;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, CAtegory = "AttributeSetBase")
+		FGameplayAttributeData MaxStrength;
+
+	void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) override;
+
+	FOnHealthChangedDelegate OnHealthChange;
+	FOnManaChangedDelegate OnManaChange;
+	FOnStrengthChangedDelegate OnStrengthChange;
 };
